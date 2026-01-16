@@ -1,0 +1,11 @@
+// 1.21.1	2026-01-15T17:57:01.5899841	FarmZ/Tags for minecraft:block
+5ae188c66bad405a2b5c6e3907527b03d668381c data\minecraft\tags\block\mineable\axe.json
+aafd633331d0a024fa2eeb3784bfd6c56882309e data\minecraft\tags\block\climbable.json
+c7ef68703fbeb166f4774fb2f37885d283f0f22e data\minecraft\tags\block\fall_damage_resetting.json
+89d6c29ae2d02793e236d10b134dccb94ea053dd data\minecraft\tags\block\flowers.json
+816cba603a64755819671daf49ef7176bac42903 data\minecraft\tags\block\crops.json
+7fe917bdfa55d8a3f7ce88ce0c19d2ed8037bf88 data\minecraft\tags\block\moss_replaceable.json
+aafd633331d0a024fa2eeb3784bfd6c56882309e data\minecraft\tags\block\bee_growables.json
+f86de4138bedbec191713213233c9d07c58bf105 data\minecraft\tags\block\sword_efficient.json
+aafd633331d0a024fa2eeb3784bfd6c56882309e data\minecraft\tags\block\cave_vines.json
+1ddefc7af3e369a0e3c9c3313250cec7fa97b805 data\minecraft\tags\block\maintains_farmland.json

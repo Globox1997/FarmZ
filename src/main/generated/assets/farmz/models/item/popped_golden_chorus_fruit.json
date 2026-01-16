@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "farmz:item/popped_golden_chorus_fruit"
+  }
+}

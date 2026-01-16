@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "farmz:golden_wheat"
+    },
+    "X": {
+      "item": "farmz:golden_cocoa_beans"
+    }
+  },
+  "pattern": [
+    "#X#"
+  ],
+  "result": {
+    "count": 8,
+    "id": "farmz:golden_cookie"
+  }
+}

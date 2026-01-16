@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "farmz:block/golden_cocoa",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "farmz:block/golden_cocoa",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "farmz:block/golden_cocoa"
+    },
+    "facing=west": {
+      "model": "farmz:block/golden_cocoa",
+      "y": 90
+    }
+  }
+}

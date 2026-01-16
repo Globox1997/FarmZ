@@ -1,0 +1,8 @@
+{
+  "watering_can": {
+    "sounds": [
+      "farmz:watering_can_1",
+      "farmz:watering_can_2"
+    ]
+  }
+}

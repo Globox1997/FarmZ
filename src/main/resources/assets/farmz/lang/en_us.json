@@ -1,0 +1,31 @@
+{
+    "item.farmz.item_group": "FarmZ",
+
+    "item.farmz.farmers_hat": "Farmers Hat",
+
+    "item.farmz.glistering_sweet_berries": "Glistering Sweet Berries",
+    "item.farmz.glistering_glow_berries": "Glistering Glow Berries",
+    "item.farmz.golden_potato": "Golden Potato",
+    "item.farmz.baked_golden_potato": "Baked Golden Potato",
+    "item.farmz.golden_beetroot": "Golden Beetroot",
+    "item.farmz.golden_chorus_fruit": "Golden Chorus Fruit",
+    "item.farmz.popped_golden_chorus_fruit": "Popped Golden Chorus Fruit",
+    "item.farmz.golden_bread": "Golden Bread",
+    "item.farmz.golden_cocoa_beans": "Golden Cocoa Beans",
+    "item.farmz.golden_wheat": "Golden Wheat",
+    "item.farmz.golden_cookie": "Golden Cookie",
+
+    "item.farmz.copper_watering_can": "Copper Watering Can",
+    "item.farmz.golden_watering_can": "Golden Watering Can",
+    "item.farmz.iron_watering_can": "Iron Watering Can",
+    "item.farmz.diamond_watering_can": "Diamond Watering Can",
+    "item.farmz.netherite_watering_can": "Netherite Watering Can",
+
+    "block.farmz.glistering_sweet_berry_bush": "Glistering Sweet Berry Bush",
+    "block.farmz.golden_potatoes": "Golden Potatoes",
+    "block.farmz.sprinkler": "Sprinkler",
+
+    "text.autoconfig.farmz.title": "FarmZ Config",
+    "text.autoconfig.farmz.option.waterSourceRange": "Water Source Range",
+    "text.autoconfig.farmz.option.farmersHatGoldChance": "Farmers Hat Gold Chance"
+}

@@ -1,0 +1,23 @@
+{
+  "required": true,
+  "package": "net.farmz.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "CropBlockMixin",
+    "FarmlandBlockMixin",
+    "misc.AbstractPlantPartBlockMixin",
+    "misc.BeetrootsBlockMixin",
+    "misc.CaveVinesBodyBlockMixin",
+    "misc.CaveVinesHeadBlockMixin",
+    "misc.ChorusFlowerBlockMixin",
+    "misc.ChorusPlantBlockMixin",
+    "misc.CocoaBlockMixin",
+    "misc.SweetBerryBushBlockMixin"
+  ],
+  "client": [
+    "client.HeadFeatureRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+	}
+}

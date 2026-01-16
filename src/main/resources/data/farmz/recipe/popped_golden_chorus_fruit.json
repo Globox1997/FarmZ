@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "farmz:golden_chorus_fruit"
+  },
+  "result": {
+    "id": "farmz:popped_golden_chorus_fruit"
+  }
+}

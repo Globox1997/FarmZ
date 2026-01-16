@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "d": {
+      "tag": "minecraft:planks"
+    },
+    "e": {
+      "item": "minecraft:barrel"
+    },
+    "f": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    "fdf",
+    " d ",
+    "ded"
+  ],
+  "result": {
+    "count": 1,
+    "id": "farmz:sprinkler"
+  }
+}
