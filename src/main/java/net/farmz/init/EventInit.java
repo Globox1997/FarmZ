@@ -9,13 +9,13 @@ import net.minecraft.util.ActionResult;
 public class EventInit {
 
     public static void init() {
-        UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
-            if(!world.isClient() && player.getStackInHand(hand).getItem() instanceof AliasedBlockItem){
-//                Items
-//                System.out.println("TEST");
-//                PotatoesBlock
-            }
-            return ActionResult.PASS;
-        });
+//        UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
+//            if(!world.isClient() && player.getStackInHand(hand).getItem() instanceof AliasedBlockItem){
+////                Items
+////                System.out.println("TEST");
+////                PotatoesBlock
+//            }
+//            return ActionResult.PASS;
+//        });
     }
 }

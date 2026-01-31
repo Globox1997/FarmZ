@@ -28,9 +28,9 @@ public class GoldenCropUtil {
             if (placer.getEquippedStack(EquipmentSlot.HEAD).isOf(ItemInit.FARMERS_HAT)) {
                 goldenPlantChance += ConfigInit.CONFIG.farmersHatGoldChance;
             }
-//            if (goldenPlantChance > 0 && world.getRandom().nextInt(100) + 1 < goldenPlantChance) {
+            if (goldenPlantChance > 0 && world.getRandom().nextInt(100) + 1 < goldenPlantChance) {
                 world.setBlockState(pos, state.with(SprinklerBlock.GOLDEN, true));
-//            }
+            }
         }
     }
 

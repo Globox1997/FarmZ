@@ -4,16 +4,16 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.farmz.FarmMain;
 import net.farmz.block.SprinklerBlock;
+import net.farmz.init.BlockInit;
 import net.farmz.util.GoldenCropUtil;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.CropBlock;
-import net.minecraft.block.PlantBlock;
+import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -31,10 +31,31 @@ public abstract class CropBlockMixin extends PlantBlock {
 
     @WrapOperation(method = "applyGrowth", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/CropBlock;withAge(I)Lnet/minecraft/block/BlockState;"))
     private BlockState applyGrowthMixin(CropBlock instance, int age, Operation<BlockState> original, World world, BlockPos pos, BlockState state) {
-        if (age == getMaxAge() && state.contains(SprinklerBlock.GOLDEN) && state.get(SprinklerBlock.GOLDEN)) {
-            Block block = Registries.BLOCK.get(FarmMain.identifierOf("golden_" + Registries.BLOCK.getId(state.getBlock()).getPath()));
-            if (!block.getDefaultState().isAir()) {
-                return Registries.BLOCK.get(FarmMain.identifierOf("golden_" + Registries.BLOCK.getId(state.getBlock()).getPath())).getDefaultState();
+        if (age == getMaxAge()) {
+            if (state.isOf(Blocks.BEETROOTS) && world.getBlockState(pos.down()).contains(SprinklerBlock.EGG) && world.getBlockState(pos.down()).get(SprinklerBlock.EGG)) {
+                world.setBlockState(pos.down(), world.getBlockState(pos.down()).with(SprinklerBlock.EGG, false));
+                return BlockInit.BEETHUUT_EGG.getDefaultState();
+            } else if (state.contains(SprinklerBlock.GOLDEN) && state.get(SprinklerBlock.GOLDEN)) {
+                Block block = Registries.BLOCK.get(FarmMain.identifierOf("golden_" + Registries.BLOCK.getId(state.getBlock()).getPath()));
+                if (!block.getDefaultState().isAir()) {
+                    return Registries.BLOCK.get(FarmMain.identifierOf("golden_" + Registries.BLOCK.getId(state.getBlock()).getPath())).getDefaultState();
+                }
+            }
+        }
+        return original.call(instance, age).withIfExists(SprinklerBlock.GOLDEN, state.get(SprinklerBlock.GOLDEN));
+    }
+
+    @WrapOperation(method = "randomTick",at = @At(value = "INVOKE",target = "Lnet/minecraft/block/CropBlock;withAge(I)Lnet/minecraft/block/BlockState;"))
+    private BlockState randomTickMixin(CropBlock instance, int age, Operation<BlockState> original, BlockState state, ServerWorld world, BlockPos pos, Random random){
+        if (age == getMaxAge()) {
+            if (state.isOf(Blocks.BEETROOTS) && world.getBlockState(pos.down()).contains(SprinklerBlock.EGG) && world.getBlockState(pos.down()).get(SprinklerBlock.EGG)) {
+                world.setBlockState(pos.down(), world.getBlockState(pos.down()).with(SprinklerBlock.EGG, false));
+                return BlockInit.BEETHUUT_EGG.getDefaultState();
+            } else if (state.contains(SprinklerBlock.GOLDEN) && state.get(SprinklerBlock.GOLDEN)) {
+                Block block = Registries.BLOCK.get(FarmMain.identifierOf("golden_" + Registries.BLOCK.getId(state.getBlock()).getPath()));
+                if (!block.getDefaultState().isAir()) {
+                    return Registries.BLOCK.get(FarmMain.identifierOf("golden_" + Registries.BLOCK.getId(state.getBlock()).getPath())).getDefaultState();
+                }
             }
         }
         return original.call(instance, age).withIfExists(SprinklerBlock.GOLDEN, state.get(SprinklerBlock.GOLDEN));

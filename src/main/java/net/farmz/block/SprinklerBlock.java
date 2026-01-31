@@ -32,6 +32,7 @@ public class SprinklerBlock extends Block implements BlockEntityProvider {
     public static final BooleanProperty WATER = BooleanProperty.of("water");
 
     public static final BooleanProperty GOLDEN = BooleanProperty.of("golden");
+    public static final BooleanProperty EGG = BooleanProperty.of("egg");
     public static final BooleanProperty SPRINKLED = BooleanProperty.of("sprinkled");
     public static final IntProperty WATERED = IntProperty.of("watered", 0, 7);
 

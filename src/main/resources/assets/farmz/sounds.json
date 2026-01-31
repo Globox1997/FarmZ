@@ -4,5 +4,26 @@
       "farmz:watering_can_1",
       "farmz:watering_can_2"
     ]
+  },
+  "beethuut_idle": {
+    "sounds": [
+      "farmz:beethuut_idle_1",
+      "farmz:beethuut_idle_2",
+      "farmz:beethuut_idle_3"
+    ]
+  },
+  "beethuut_hurt": {
+    "sounds": [
+      "farmz:beethuut_hurt_1",
+      "farmz:beethuut_hurt_2",
+      "farmz:beethuut_hurt_3"
+    ]
+  },
+  "beethuut_death": {
+    "sounds": [
+      "farmz:beethuut_death_1",
+      "farmz:beethuut_death_2",
+      "farmz:beethuut_death_3"
+    ]
   }
 }

@@ -46,6 +46,7 @@ public class BlockInit {
             "golden_chorus_flower",
             new ChorusFlowerBlock(Blocks.CHORUS_PLANT, AbstractBlock.Settings.create().mapColor(MapColor.GOLD).notSolid().strength(0.4F).sounds(BlockSoundGroup.WOOD).nonOpaque().allowsSpawning(Blocks::never).pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::never)), false, false);
 
+    public static final Block BEETHUUT_EGG = register("beethuut_egg", new BeethuutEggBlock(AbstractBlock.Settings.create().mapColor(MapColor.GREEN).solid().strength(0.5F).sounds(BlockSoundGroup.METAL).ticksRandomly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY)), true, true);
 
     public static final Block SPRINKLER = register("sprinkler", new SprinklerBlock(AbstractBlock.Settings.copy(Blocks.BARREL).nonOpaque()), true, true);
 

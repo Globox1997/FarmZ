@@ -24,8 +24,12 @@
     "block.farmz.glistering_sweet_berry_bush": "Glistering Sweet Berry Bush",
     "block.farmz.golden_potatoes": "Golden Potatoes",
     "block.farmz.sprinkler": "Sprinkler",
+    "block.farmz.beethuut_egg": "Beethuut Egg",
 
     "text.autoconfig.farmz.title": "FarmZ Config",
     "text.autoconfig.farmz.option.waterSourceRange": "Water Source Range",
-    "text.autoconfig.farmz.option.farmersHatGoldChance": "Farmers Hat Gold Chance"
+    "text.autoconfig.farmz.option.farmersHatGoldChance": "Farmers Hat Gold Chance",
+
+    "entity.farmz.beethuut": "Beethuut",
+    "item.farmz.spawn_beethuut": "Beethuut Spawn Egg"
 }

@@ -16,6 +16,7 @@ public class FarmMain implements ModInitializer {
         BlockInit.init();
         EventInit.init();
         SoundInit.init();
+        EntityInit.init();
     }
 
     public static Identifier identifierOf(String name) {
