@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "d": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    "  d",
+    "dd ",
+    "dd "
+  ],
+  "result": {
+    "count": 1,
+    "id": "farmz:iron_watering_can"
+  }
+}

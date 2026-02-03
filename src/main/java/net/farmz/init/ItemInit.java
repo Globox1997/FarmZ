@@ -37,10 +37,6 @@ public class ItemInit {
     public static final Item GLISTERING_GLOW_BERRIES = register("glistering_glow_berries", new AliasedBlockItem(Blocks.CAVE_VINES, new Item.Settings().food(GLISTERING_GLOW_BERRIES_FOOD)));
     public static final Item BAKED_GOLDEN_POTATO = register("baked_golden_potato", new Item(new Item.Settings().food(BAKED_GOLDEN_POTATO_FOOD)));
 
-//    public static final Item GLISTERING_SWEET_BERRIES = register("glistering_sweet_berries", new AliasedBlockItem(BlockInit.GLISTERING_SWEET_BERRY_BUSH, new Item.Settings().food(GLISTERING_SWEET_BERRIES_FOOD)));
-//    public static final Item GOLDEN_POTATO = register("golden_potato", new AliasedBlockItem(BlockInit.GOLDEN_POTATOES, new Item.Settings().food(GOLDEN_POTATO_FOOD)));
-//    public static final Item GOLDEN_BEETROOT = register("golden_beetroot", new AliasedBlockItem(BlockInit.GOLDEN_BEETROOTS, new Item.Settings().food(GOLDEN_BEETROOT_FOOD)));
-
     public static final Item GOLDEN_POTATO = register("golden_potato", new Item(new Item.Settings().food(GOLDEN_POTATO_FOOD)));
     public static final Item GOLDEN_BEETROOT = register("golden_beetroot", new Item(new Item.Settings().food(GOLDEN_BEETROOT_FOOD)));
     public static final Item GLISTERING_SWEET_BERRIES = register("glistering_sweet_berries", new Item(new Item.Settings().food(GLISTERING_SWEET_BERRIES_FOOD)));
