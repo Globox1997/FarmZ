@@ -1,6 +1,6 @@
 ### Added:
-- Added watering can recipes
-### Fixed:
-- Fixed glistering sweet berry bush crash
-### Changed:
 - 
+### Fixed:
+- 
+### Changed:
+- Netherite watering can is now fireproof
