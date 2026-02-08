@@ -8,6 +8,7 @@ import net.farmz.item.WateringCan;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.component.type.FoodComponent;
+import net.minecraft.component.type.FoodComponents;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -31,6 +32,7 @@ public class ItemInit {
     public static final FoodComponent GOLDEN_CHORUS_FRUIT_FOOD = new FoodComponent.Builder().nutrition(8).saturationModifier(0.6F).alwaysEdible().build();
     public static final FoodComponent GOLDEN_BREAD_FOOD = new FoodComponent.Builder().nutrition(10).saturationModifier(1.2F).alwaysEdible().build();
     public static final FoodComponent GOLDEN_COOKIE_FOOD = new FoodComponent.Builder().nutrition(4).saturationModifier(0.2F).alwaysEdible().build();
+    public static final FoodComponent GOLDEN_BEETROOT_SOUP_FOOD = new FoodComponent.Builder().nutrition(12).saturationModifier(1.2F).usingConvertsTo(Items.BOWL).build();
 
     public static final Item FARMERS_HAT = register("farmers_hat", new FarmersHatItem(new Item.Settings().maxCount(1)));
 
@@ -48,6 +50,8 @@ public class ItemInit {
     public static final Item GOLDEN_COOKIE = register("golden_cookie", new Item(new Item.Settings().food(GOLDEN_COOKIE_FOOD)));
     public static final Item GOLDEN_COCOA_BEANS = register("golden_cocoa_beans", new Item(new Item.Settings()));
     public static final Item GOLDEN_WHEAT = register("golden_wheat", new Item(new Item.Settings()));
+
+    public static final Item GOLDEN_BEETROOT_SOUP = register("golden_beetroot_soup", new Item(new Item.Settings().maxCount(1).food(GOLDEN_BEETROOT_SOUP_FOOD)));
 
     public static final Item COPPER_WATERING_CAN = register("copper_watering_can", new WateringCan(new Item.Settings().maxDamage(3), 0));
     public static final Item GOLDEN_WATERING_CAN = register("golden_watering_can", new WateringCan(new Item.Settings().maxDamage(5), 1));

@@ -34,6 +34,7 @@ public class ModelLoader extends FabricModelProvider {
         itemModelGenerator.register(ItemInit.GOLDEN_COOKIE, Models.GENERATED);
         itemModelGenerator.register(ItemInit.GOLDEN_COCOA_BEANS, Models.GENERATED);
         itemModelGenerator.register(ItemInit.GOLDEN_WHEAT, Models.GENERATED);
+        itemModelGenerator.register(ItemInit.GOLDEN_BEETROOT_SOUP, Models.GENERATED);
 
         itemModelGenerator.register(ItemInit.COPPER_WATERING_CAN, Models.HANDHELD);
         itemModelGenerator.register(ItemInit.GOLDEN_WATERING_CAN, Models.HANDHELD);

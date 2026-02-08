@@ -1,7 +1,8 @@
-// 1.21.1	2026-01-15T17:57:01.5869782	FarmZ/Model Definitions
+// 1.21.1	2026-02-08T11:12:03.5939599	FarmZ/Model Definitions
 92093ee6856fbd79e8752a751f47a64d3549d57b assets\farmz\models\item\golden_wheat.json
-50ea4215392c0a1507c7f9f2f887706222989549 assets\farmz\models\item\golden_potato.json
+0160a727b76ba962988ea0d803df03b960177f0e assets\farmz\models\item\golden_beetroot_soup.json
 90b0517b0f474d65ee8f571de7b6eaf811fbb359 assets\farmz\models\item\glistering_sweet_berries.json
+50ea4215392c0a1507c7f9f2f887706222989549 assets\farmz\models\item\golden_potato.json
 34548e2a6ca2faf7f7b7ad68cb6e21ceb6364007 assets\farmz\models\item\golden_cookie.json
 dc4a105beb2d630a8941e6dc421a8430c1d408a9 assets\farmz\models\item\golden_beetroot.json
 06ebff3855684401327ae5009b99ae787f064c6c assets\farmz\models\item\diamond_watering_can.json
