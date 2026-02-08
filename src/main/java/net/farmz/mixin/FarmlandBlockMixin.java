@@ -36,17 +36,17 @@ public abstract class FarmlandBlockMixin extends Block {
         super(settings);
     }
 
-    @ModifyConstant(method = "isWaterNearby", constant = @Constant(intValue = -4))
+    @ModifyConstant(method = "isWaterNearby", constant = @Constant(intValue = -4), expect = 2)
     private static int isWaterNearbyMixin(int original) {
-        if (ConfigInit.CONFIG.waterSourceRange != 0) {
+        if (ConfigInit.CONFIG.waterSourceRange > -1) {
             return ConfigInit.CONFIG.waterSourceRange;
         }
         return original;
     }
 
-    @ModifyConstant(method = "isWaterNearby", constant = @Constant(intValue = 4))
+    @ModifyConstant(method = "isWaterNearby", constant = @Constant(intValue = 4), expect = 2)
     private static int isWaterNearbyMixinTwo(int original) {
-        if (ConfigInit.CONFIG.waterSourceRange != 0) {
+        if (ConfigInit.CONFIG.waterSourceRange > -1) {
             return ConfigInit.CONFIG.waterSourceRange;
         }
         return original;

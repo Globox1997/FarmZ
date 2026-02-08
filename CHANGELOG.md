@@ -1,6 +1,6 @@
 ### Added:
 - 
 ### Fixed:
-- 
+- Fixed 0 moisture setting
 ### Changed:
-- Netherite watering can is now fireproof
+- 
