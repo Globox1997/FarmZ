@@ -45,8 +45,8 @@ public abstract class CropBlockMixin extends PlantBlock {
         return original.call(instance, age).withIfExists(SprinklerBlock.GOLDEN, state.get(SprinklerBlock.GOLDEN));
     }
 
-    @WrapOperation(method = "randomTick",at = @At(value = "INVOKE",target = "Lnet/minecraft/block/CropBlock;withAge(I)Lnet/minecraft/block/BlockState;"))
-    private BlockState randomTickMixin(CropBlock instance, int age, Operation<BlockState> original, BlockState state, ServerWorld world, BlockPos pos, Random random){
+    @WrapOperation(method = "randomTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/CropBlock;withAge(I)Lnet/minecraft/block/BlockState;"))
+    private BlockState randomTickMixin(CropBlock instance, int age, Operation<BlockState> original, BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (age == getMaxAge()) {
             if (state.isOf(Blocks.BEETROOTS) && world.getBlockState(pos.down()).contains(SprinklerBlock.EGG) && world.getBlockState(pos.down()).get(SprinklerBlock.EGG)) {
                 world.setBlockState(pos.down(), world.getBlockState(pos.down()).with(SprinklerBlock.EGG, false));
@@ -58,7 +58,10 @@ public abstract class CropBlockMixin extends PlantBlock {
                 }
             }
         }
-        return original.call(instance, age).withIfExists(SprinklerBlock.GOLDEN, state.get(SprinklerBlock.GOLDEN));
+        if (state.contains(SprinklerBlock.GOLDEN)) {
+            return original.call(instance, age).withIfExists(SprinklerBlock.GOLDEN, state.get(SprinklerBlock.GOLDEN));
+        }
+        return original.call(instance, age);
     }
 
     @WrapOperation(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/CropBlock;setDefaultState(Lnet/minecraft/block/BlockState;)V"))

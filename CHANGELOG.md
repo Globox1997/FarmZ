@@ -1,6 +1,7 @@
 ### Added:
-- Added golden beetroot soup
+- 
 ### Fixed:
-- Fixed 0 moisture setting
+- Fixed mod compat
+- Fixed missing lang
 ### Changed:
 - 
