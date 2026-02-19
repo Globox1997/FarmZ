@@ -3,6 +3,7 @@ package net.farmz.item;
 import net.farmz.block.SprinklerBlock;
 import net.farmz.init.SoundInit;
 import net.minecraft.block.Block;
+import net.minecraft.block.CropBlock;
 import net.minecraft.block.FarmlandBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
@@ -47,24 +48,29 @@ public class WateringCan extends Item {
                 }
             }
         }
-        if (!(context.getWorld().getBlockState(context.getBlockPos()).getBlock() instanceof FarmlandBlock)) {
-            return ActionResult.CONSUME;
-        }
         if (context.getStack().getDamage() == context.getStack().getMaxDamage()) {
             return ActionResult.CONSUME;
+        }
+
+        if (!(context.getWorld().getBlockState(context.getBlockPos()).getBlock() instanceof FarmlandBlock) && !(context.getWorld().getBlockState(context.getBlockPos()).getBlock() instanceof CropBlock)) {
+            return ActionResult.CONSUME;
+        }
+        BlockPos pos = context.getBlockPos();
+        if (context.getWorld().getBlockState(context.getBlockPos()).getBlock() instanceof CropBlock) {
+            pos = pos.down();
         }
 
         if (!context.getWorld().isClient()) {
             for (int i = -this.size; i <= this.size; i++) {
                 for (int u = -this.size; u <= this.size; u++) {
-                    BlockPos checkPos = context.getBlockPos().add(u, 0, i);
+                    BlockPos checkPos = pos.add(u, 0, i);
                     if (context.getWorld().getBlockState(checkPos).getBlock() instanceof FarmlandBlock) {
                         context.getWorld().setBlockState(checkPos, context.getWorld().getBlockState(checkPos).with(SprinklerBlock.WATERED, 7).with(FarmlandBlock.MOISTURE, 7), Block.NOTIFY_LISTENERS);
                     }
                 }
             }
-            if (context.getWorld().getBlockState(context.getBlockPos()).getBlock() instanceof FarmlandBlock) {
-                context.getWorld().setBlockState(context.getBlockPos(), context.getWorld().getBlockState(context.getBlockPos()).with(SprinklerBlock.WATERED, 7).with(FarmlandBlock.MOISTURE, 7), Block.NOTIFY_LISTENERS);
+            if (context.getWorld().getBlockState(pos).getBlock() instanceof FarmlandBlock) {
+                context.getWorld().setBlockState(pos, context.getWorld().getBlockState(pos).with(SprinklerBlock.WATERED, 7).with(FarmlandBlock.MOISTURE, 7), Block.NOTIFY_LISTENERS);
             }
 
             if (context.getStack().getDamage() == context.getStack().getMaxDamage() - 1) {
@@ -73,13 +79,13 @@ public class WateringCan extends Item {
                 context.getStack().damage(1, context.getPlayer(), LivingEntity.getSlotForHand(context.getHand()));
             }
         } else {
-            context.getWorld().playSound(context.getPlayer(), context.getBlockPos(), SoundInit.WATERING_CAN, SoundCategory.BLOCKS, 1.0f, 1.0f);
+            context.getWorld().playSound(context.getPlayer(), pos, SoundInit.WATERING_CAN, SoundCategory.BLOCKS, 1.0f, 1.0f);
             for (int i = -this.size; i <= this.size; i++) {
                 for (int u = -this.size; u <= this.size; u++) {
                     for (int o = 0; o < 9; o++) {
-                        BlockPos particlePos = context.getBlockPos().add(u, 0, i);
+                        BlockPos particlePos = pos.add(u, 0, i);
                         if (context.getWorld().getBlockState(particlePos).getBlock() instanceof FarmlandBlock) {
-                            context.getWorld().addParticle(ParticleTypes.DRIPPING_WATER, particlePos.getX() + context.getWorld().getRandom().nextFloat(), context.getBlockPos().getY() + 0.91, particlePos.getZ() + context.getWorld().getRandom().nextFloat(), 0D, 0D, 0D);
+                            context.getWorld().addParticle(ParticleTypes.DRIPPING_WATER, particlePos.getX() + context.getWorld().getRandom().nextFloat(), pos.getY() + 0.91, particlePos.getZ() + context.getWorld().getRandom().nextFloat(), 0D, 0D, 0D);
                         }
                     }
                 }
