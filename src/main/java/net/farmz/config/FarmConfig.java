@@ -18,5 +18,7 @@ public class FarmConfig implements ConfigData {
     @Comment("Xp drop on breaking the plant")
     public int goldenPlantMinXp = 0;
     public int goldenPlantMaxXp = 2;
+    @Comment("LevelZ compatibility")
+    public float goldenPlantXPMultiplier = 1.0F;
 
 }

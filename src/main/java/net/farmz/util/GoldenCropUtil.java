@@ -5,6 +5,7 @@ import net.farmz.block.SprinklerBlock;
 import net.farmz.init.ConfigInit;
 import net.farmz.init.ItemInit;
 import net.levelz.access.LevelManagerAccess;
+import net.levelz.entity.LevelExperienceOrbEntity;
 import net.levelz.level.LevelManager;
 import net.levelz.level.SkillBonus;
 import net.minecraft.block.BlockState;
@@ -45,6 +46,10 @@ public class GoldenCropUtil {
             int i = EnchantmentHelper.getBlockExperience(world, tool, UniformIntProvider.create(ConfigInit.CONFIG.goldenPlantMinXp, ConfigInit.CONFIG.goldenPlantMaxXp).get(world.getRandom()));
             if (i > 0 && world.getGameRules().getBoolean(GameRules.DO_TILE_DROPS)) {
                 ExperienceOrbEntity.spawn(world, Vec3d.ofCenter(pos), i);
+
+                if (FarmMain.isLevelzLoaded) {
+                    LevelExperienceOrbEntity.spawn(world, Vec3d.ofCenter(pos), (int) (i * ConfigInit.CONFIG.goldenPlantXPMultiplier));
+                }
             }
         }
     }

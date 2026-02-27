@@ -39,6 +39,7 @@
     "text.autoconfig.farmz.option.farmersHatGoldChance": "Farmers Hat Gold Chance",
     "text.autoconfig.farmz.option.goldenPlantMinXp": "Golden Plant Min Xp",
     "text.autoconfig.farmz.option.goldenPlantMaxXp": "Golden Plant Max Xp",
+    "text.autoconfig.farmz.option.goldenPlantXPMultiplier": "Golden Plant Xp Multiplier",
 
     "entity.farmz.beethuut": "Beethuut",
     "item.farmz.spawn_beethuut": "Beethuut Spawn Egg"
