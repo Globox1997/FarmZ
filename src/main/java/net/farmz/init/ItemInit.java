@@ -54,8 +54,8 @@ public class ItemInit {
     public static final Item GOLDEN_BEETROOT_SOUP = register("golden_beetroot_soup", new Item(new Item.Settings().maxCount(1).food(GOLDEN_BEETROOT_SOUP_FOOD)));
 
     public static final Item COPPER_WATERING_CAN = register("copper_watering_can", new WateringCan(new Item.Settings().maxDamage(3), 0));
-    public static final Item GOLDEN_WATERING_CAN = register("golden_watering_can", new WateringCan(new Item.Settings().maxDamage(5), 1));
-    public static final Item IRON_WATERING_CAN = register("iron_watering_can", new WateringCan(new Item.Settings().maxDamage(8), 2));
+    public static final Item GOLDEN_WATERING_CAN = register("golden_watering_can", new WateringCan(new Item.Settings().maxDamage(5), 2));
+    public static final Item IRON_WATERING_CAN = register("iron_watering_can", new WateringCan(new Item.Settings().maxDamage(8), 1));
     public static final Item DIAMOND_WATERING_CAN = register("diamond_watering_can", new WateringCan(new Item.Settings().maxDamage(12), 3));
     public static final Item NETHERITE_WATERING_CAN = register("netherite_watering_can", new WateringCan(new Item.Settings().maxDamage(15).fireproof(), 4));
 
