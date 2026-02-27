@@ -1,5 +1,5 @@
 ### Added:
-- 
+- Added golden crop xp drop
 ### Fixed:
 - 
 ### Changed:

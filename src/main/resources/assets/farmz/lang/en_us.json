@@ -37,6 +37,8 @@
     "text.autoconfig.farmz.title": "FarmZ Config",
     "text.autoconfig.farmz.option.waterSourceRange": "Water Source Range",
     "text.autoconfig.farmz.option.farmersHatGoldChance": "Farmers Hat Gold Chance",
+    "text.autoconfig.farmz.option.goldenPlantMinXp": "Golden Plant Min Xp",
+    "text.autoconfig.farmz.option.goldenPlantMaxXp": "Golden Plant Max Xp",
 
     "entity.farmz.beethuut": "Beethuut",
     "item.farmz.spawn_beethuut": "Beethuut Spawn Egg"

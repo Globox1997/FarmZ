@@ -3,6 +3,7 @@ package net.farmz.block;
 import com.mojang.serialization.MapCodec;
 import net.farmz.init.BlockInit;
 import net.farmz.init.ItemInit;
+import net.farmz.util.GoldenCropUtil;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -11,6 +12,7 @@ import net.minecraft.entity.mob.RavagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -117,6 +119,13 @@ public class GoldenCropBlock extends PlantBlock {
     @Override
     protected boolean hasRandomTicks(BlockState state) {
         return false;
+    }
+
+    @Override
+    protected void onStacksDropped(BlockState state, ServerWorld world, BlockPos pos, ItemStack tool, boolean dropExperience) {
+        super.onStacksDropped(state, world, pos, tool, dropExperience);
+
+        GoldenCropUtil.dropGoldenPlantExperience(state, world, pos, tool, dropExperience);
     }
 
 }

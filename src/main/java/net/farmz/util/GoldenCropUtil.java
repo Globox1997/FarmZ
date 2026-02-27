@@ -11,10 +11,16 @@ import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 
 public class GoldenCropUtil {
@@ -30,6 +36,15 @@ public class GoldenCropUtil {
             }
             if (goldenPlantChance > 0 && world.getRandom().nextInt(100) + 1 < goldenPlantChance) {
                 world.setBlockState(pos, state.with(SprinklerBlock.GOLDEN, true));
+            }
+        }
+    }
+
+    public static void dropGoldenPlantExperience(BlockState state, ServerWorld world, BlockPos pos, ItemStack tool, boolean dropExperience) {
+        if (dropExperience) {
+            int i = EnchantmentHelper.getBlockExperience(world, tool, UniformIntProvider.create(ConfigInit.CONFIG.goldenPlantMinXp, ConfigInit.CONFIG.goldenPlantMaxXp).get(world.getRandom()));
+            if (i > 0 && world.getGameRules().getBoolean(GameRules.DO_TILE_DROPS)) {
+                ExperienceOrbEntity.spawn(world, Vec3d.ofCenter(pos), i);
             }
         }
     }

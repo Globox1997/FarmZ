@@ -15,4 +15,8 @@ public class FarmConfig implements ConfigData {
     @Comment("Chance to plant a golden crop")
     public int farmersHatGoldChance = 5;
 
+    @Comment("Xp drop on breaking the plant")
+    public int goldenPlantMinXp = 0;
+    public int goldenPlantMaxXp = 2;
+
 }

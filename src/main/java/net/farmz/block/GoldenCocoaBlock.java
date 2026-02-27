@@ -2,11 +2,13 @@ package net.farmz.block;
 
 import com.mojang.serialization.MapCodec;
 import net.farmz.init.ItemInit;
+import net.farmz.util.GoldenCropUtil;
 import net.minecraft.block.*;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -95,5 +97,12 @@ public class GoldenCocoaBlock extends HorizontalFacingBlock {
     @Override
     protected boolean canPathfindThrough(BlockState state, NavigationType type) {
         return false;
+    }
+
+    @Override
+    protected void onStacksDropped(BlockState state, ServerWorld world, BlockPos pos, ItemStack tool, boolean dropExperience) {
+        super.onStacksDropped(state, world, pos, tool, dropExperience);
+
+        GoldenCropUtil.dropGoldenPlantExperience(state, world, pos, tool, dropExperience);
     }
 }
