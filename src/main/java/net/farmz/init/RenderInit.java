@@ -3,6 +3,7 @@ package net.farmz.init;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
@@ -10,6 +11,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.farmz.FarmMain;
 import net.farmz.block.renderer.SprinklerBlockRenderer;
+import net.farmz.data.FarmLoader;
 import net.farmz.entity.model.BeethuutModel;
 import net.farmz.entity.render.BeethuutRenderer;
 import net.farmz.particle.SprinklerParticle;
@@ -20,6 +22,9 @@ import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class RenderInit {
@@ -53,6 +58,13 @@ public class RenderInit {
 
         EntityRendererRegistry.register(EntityInit.BEETHUUT, BeethuutRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(BEETHUUT_LAYER, BeethuutModel::getTexturedModelData);
+
+        ItemTooltipCallback.EVENT.register((stack, tooltipContext, tooltipType, lines) -> {
+            Identifier itemId = Registries.ITEM.getId(stack.getItem());
+            if (FarmLoader.GOLD_CHANCE_ITEMS.containsKey(itemId)) {
+                lines.add(Text.translatable("item.farmz.golden_crop_chance", FarmLoader.GOLD_CHANCE_ITEMS.get(itemId)).formatted(Formatting.DARK_GREEN));
+            }
+        });
     }
 
 }

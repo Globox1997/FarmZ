@@ -2,8 +2,8 @@ package net.farmz.util;
 
 import net.farmz.FarmMain;
 import net.farmz.block.SprinklerBlock;
+import net.farmz.data.FarmLoader;
 import net.farmz.init.ConfigInit;
-import net.farmz.init.ItemInit;
 import net.levelz.access.LevelManagerAccess;
 import net.levelz.entity.LevelExperienceOrbEntity;
 import net.levelz.level.LevelManager;
@@ -11,13 +11,14 @@ import net.levelz.level.SkillBonus;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
@@ -32,8 +33,11 @@ public class GoldenCropUtil {
             if (FarmMain.isLevelzLoaded && placer instanceof PlayerEntity playerEntity) {
                 goldenPlantChance += levelZGoldenPlantChanceBonus(playerEntity);
             }
-            if (placer.getEquippedStack(EquipmentSlot.HEAD).isOf(ItemInit.FARMERS_HAT)) {
-                goldenPlantChance += ConfigInit.CONFIG.farmersHatGoldChance;
+            for (ItemStack stack : placer.getEquippedItems()) {
+                Identifier itemId = Registries.ITEM.getId(stack.getItem());
+                if (FarmLoader.GOLD_CHANCE_ITEMS.containsKey(itemId)) {
+                    goldenPlantChance += FarmLoader.GOLD_CHANCE_ITEMS.get(itemId);
+                }
             }
             if (goldenPlantChance > 0 && world.getRandom().nextInt(100) + 1 < goldenPlantChance) {
                 world.setBlockState(pos, state.with(SprinklerBlock.GOLDEN, true));

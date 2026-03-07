@@ -2,6 +2,7 @@
     "item.farmz.item_group": "FarmZ",
 
     "item.farmz.farmers_hat": "Farmers Hat",
+    "item.farmz.golden_crop_chance": "+%s%% Golden Crop Chance",
 
     "item.farmz.glistering_sweet_berries": "Glistering Sweet Berries",
     "item.farmz.glistering_glow_berries": "Glistering Glow Berries",
@@ -36,7 +37,6 @@
 
     "text.autoconfig.farmz.title": "FarmZ Config",
     "text.autoconfig.farmz.option.waterSourceRange": "Water Source Range",
-    "text.autoconfig.farmz.option.farmersHatGoldChance": "Farmers Hat Gold Chance",
     "text.autoconfig.farmz.option.goldenPlantMinXp": "Golden Plant Min Xp",
     "text.autoconfig.farmz.option.goldenPlantMaxXp": "Golden Plant Max Xp",
     "text.autoconfig.farmz.option.goldenPlantXPMultiplier": "Golden Plant Xp Multiplier",

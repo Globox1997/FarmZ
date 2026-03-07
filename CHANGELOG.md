@@ -1,6 +1,6 @@
 ### Added:
-- Added golden crop xp drop
+- Added golden crop chance data
 ### Fixed:
 - 
 ### Changed:
-- Tweaked watering can gold and iron size
+- 

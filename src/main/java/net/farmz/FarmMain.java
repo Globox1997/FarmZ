@@ -3,6 +3,7 @@ package net.farmz;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.farmz.init.*;
+import net.farmz.network.FarmServerPacket;
 import net.minecraft.util.Identifier;
 
 public class FarmMain implements ModInitializer {
@@ -17,6 +18,8 @@ public class FarmMain implements ModInitializer {
         EventInit.init();
         SoundInit.init();
         EntityInit.init();
+        LoaderInit.init();
+        FarmServerPacket.init();
     }
 
     public static Identifier identifierOf(String name) {

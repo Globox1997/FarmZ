@@ -6,3 +6,19 @@ FarmZ is a mod built for the [Fabric Loader](https://fabricmc.net/). It requires
 
 ### License
 FarmZ is licensed under MIT.
+
+### Datapacks
+Worn item golden crop chance is data driven.
+
+If you don't know how to create a datapack check out [Data Pack Wiki](https://minecraft.wiki/w/Data_Pack)
+website and try to create your first one for the vanilla game. Each existing file can be overriden by setting replace = true.
+Put the json file inside data/modid/farmer/YOURFILE.json
+
+Example:
+```json
+{
+  "replace": false,
+  "farmz:farmers_hat": 5,
+  "minecraft:iron_chestplate": 2
+}
+```
