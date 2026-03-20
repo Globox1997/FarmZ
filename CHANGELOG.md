@@ -1,6 +1,6 @@
 ### Added:
-- Added golden crop chance data
-### Fixed:
 - 
+### Fixed:
+- Fixed compat crash
 ### Changed:
 - 

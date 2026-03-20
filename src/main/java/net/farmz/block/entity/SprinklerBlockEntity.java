@@ -111,7 +111,7 @@ public class SprinklerBlockEntity extends BlockEntity {
                     if (sprinkle) {
                         int moisture = world.getBlockState(checkPos).get(FarmlandBlock.MOISTURE);
                         if (moisture < 7 || !state.get(SprinklerBlock.SPRINKLED)) {
-                            state = state.with(FarmlandBlock.MOISTURE, state.get(FarmlandBlock.MOISTURE) + 1);
+                            state = state.with(FarmlandBlock.MOISTURE, Math.min(state.get(FarmlandBlock.MOISTURE) + 1, 7));
                             world.setBlockState(checkPos, state.with(SprinklerBlock.SPRINKLED, sprinkle), Block.NOTIFY_LISTENERS);
                         }
                     } else {
