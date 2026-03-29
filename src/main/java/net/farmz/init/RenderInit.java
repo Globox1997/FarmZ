@@ -65,6 +65,8 @@ public class RenderInit {
                 lines.add(Text.translatable("item.farmz.golden_crop_chance", FarmLoader.GOLD_CHANCE_ITEMS.get(itemId)).formatted(Formatting.DARK_GREEN));
             }
         });
+
+        CompatInit.clientInit();
     }
 
 }

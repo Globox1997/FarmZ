@@ -17,6 +17,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class ItemInit {
@@ -59,12 +60,12 @@ public class ItemInit {
     public static final Item DIAMOND_WATERING_CAN = register("diamond_watering_can", new WateringCan(new Item.Settings().maxDamage(12), 3));
     public static final Item NETHERITE_WATERING_CAN = register("netherite_watering_can", new WateringCan(new Item.Settings().maxDamage(15).fireproof(), 4));
 
-    public static final Map<Block, Item> GOLDEN_CROP_ITEMS = Map.of(BlockInit.GOLDEN_POTATOES, ItemInit.GOLDEN_POTATO, BlockInit.GOLDEN_BEETROOTS, ItemInit.GOLDEN_BEETROOT,
+    public static final Map<Block, Item> GOLDEN_CROP_ITEMS = new HashMap<>(Map.of(BlockInit.GOLDEN_POTATOES, ItemInit.GOLDEN_POTATO, BlockInit.GOLDEN_BEETROOTS, ItemInit.GOLDEN_BEETROOT,
             BlockInit.GOLDEN_CARROTS, Items.GOLDEN_CARROT, BlockInit.GLISTERING_SWEET_BERRY_BUSH, ItemInit.GLISTERING_SWEET_BERRIES, BlockInit.GLISTERING_CAVE_VINES, ItemInit.GLISTERING_GLOW_BERRIES,
             BlockInit.GLISTERING_CAVE_VINES_PLANT, ItemInit.GLISTERING_GLOW_BERRIES, BlockInit.GOLDEN_CHORUS_FLOWER, ItemInit.GOLDEN_CHORUS_FRUIT, BlockInit.GOLDEN_WHEAT, ItemInit.GOLDEN_WHEAT,
-            BlockInit.GOLDEN_COCOA,ItemInit.GOLDEN_COCOA_BEANS);
+            BlockInit.GOLDEN_COCOA, ItemInit.GOLDEN_COCOA_BEANS));
 
-    private static Item register(String id, Item item) {
+    public static Item register(String id, Item item) {
         return register(FarmMain.identifierOf(id), item);
     }
 

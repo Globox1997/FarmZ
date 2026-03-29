@@ -1,0 +1,12 @@
+ 
+{
+  "type": "farm_and_charm:drying",
+  "ingredient": {
+    "tag": "farmz:golden_corn"
+  },
+  "recipe_type": "MEAT",
+  "result": {
+    "id": "brewery:dried_corn",
+    "count": 3
+  }
+}

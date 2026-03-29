@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "farmz:block/golden_lettuce_1",
+        "weight": 1
+      },
+      {
+        "model": "farmz:block/golden_lettuce_2",
+        "weight": 1
+      },
+      {
+        "model": "farmz:block/golden_lettuce_3",
+        "weight": 1
+      }
+    ]
+  }
+}

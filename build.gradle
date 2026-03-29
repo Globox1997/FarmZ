@@ -41,6 +41,10 @@ dependencies {
 	modCompileOnly ('maven.modrinth:levelz:2.0.6+1.21.1') {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
+	// Farm and Charm
+	modCompileOnly ('maven.modrinth:lets-do-farm-charm:NQb1d5es') {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
 }
 
 processResources {

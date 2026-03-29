@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "supported=false": {
+            "model": "farmz:block/golden_tomato_bottom"
+        },
+        "supported=true": {
+            "model": "farmz:block/golden_tomato_bottom_supported"
+        }
+    }
+}

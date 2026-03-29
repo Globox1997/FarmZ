@@ -40,9 +40,16 @@ public abstract class CropBlockMixin extends PlantBlock {
                 if (!block.getDefaultState().isAir()) {
                     return Registries.BLOCK.get(FarmMain.identifierOf("golden_" + Registries.BLOCK.getId(state.getBlock()).getPath())).getDefaultState();
                 }
+                block = Registries.BLOCK.get(FarmMain.identifierOf("glistering_" + Registries.BLOCK.getId(state.getBlock()).getPath()));
+                if (!block.getDefaultState().isAir()) {
+                    return Registries.BLOCK.get(FarmMain.identifierOf("glistering_" + Registries.BLOCK.getId(state.getBlock()).getPath())).getDefaultState();
+                }
             }
         }
-        return original.call(instance, age).withIfExists(SprinklerBlock.GOLDEN, state.get(SprinklerBlock.GOLDEN));
+        if (state.contains(SprinklerBlock.GOLDEN)) {
+            return original.call(instance, age).withIfExists(SprinklerBlock.GOLDEN, state.get(SprinklerBlock.GOLDEN));
+        }
+        return original.call(instance, age);
     }
 
     @WrapOperation(method = "randomTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/CropBlock;withAge(I)Lnet/minecraft/block/BlockState;"))
@@ -55,6 +62,10 @@ public abstract class CropBlockMixin extends PlantBlock {
                 Block block = Registries.BLOCK.get(FarmMain.identifierOf("golden_" + Registries.BLOCK.getId(state.getBlock()).getPath()));
                 if (!block.getDefaultState().isAir()) {
                     return Registries.BLOCK.get(FarmMain.identifierOf("golden_" + Registries.BLOCK.getId(state.getBlock()).getPath())).getDefaultState();
+                }
+                block = Registries.BLOCK.get(FarmMain.identifierOf("glistering_" + Registries.BLOCK.getId(state.getBlock()).getPath()));
+                if (!block.getDefaultState().isAir()) {
+                    return Registries.BLOCK.get(FarmMain.identifierOf("glistering_" + Registries.BLOCK.getId(state.getBlock()).getPath())).getDefaultState();
                 }
             }
         }

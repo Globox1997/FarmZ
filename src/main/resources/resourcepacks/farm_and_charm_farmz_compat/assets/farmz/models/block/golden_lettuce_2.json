@@ -1,0 +1,7 @@
+{
+  "parent": "farm_and_charm:block/template_cross_crop",
+  "textures": {
+    "4": "farmz:block/golden_lettuce_2",
+    "particle": "farmz:block/golden_lettuce_2"
+  }
+}

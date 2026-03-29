@@ -20,6 +20,7 @@ public class FarmMain implements ModInitializer {
         EntityInit.init();
         LoaderInit.init();
         FarmServerPacket.init();
+        CompatInit.init();
     }
 
     public static Identifier identifierOf(String name) {

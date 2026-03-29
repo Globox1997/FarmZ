@@ -1,0 +1,32 @@
+{
+  "variants": {
+    "supported=false": [
+      {
+        "model": "farmz:block/golden_tomato_top_1",
+        "weight": 1
+      },
+      {
+        "model": "farmz:block/golden_tomato_top_2",
+        "weight": 1
+      },
+      {
+        "model": "farmz:block/golden_tomato_top_3",
+        "weight": 1
+      }
+    ],
+    "supported=true": [
+      {
+        "model": "farmz:block/golden_tomato_top_1_supported",
+        "weight": 1
+      },
+      {
+        "model": "farmz:block/golden_tomato_top_2_supported",
+        "weight": 1
+      },
+      {
+        "model": "farmz:block/golden_tomato_top_3_supported",
+        "weight": 1
+      }
+    ]
+  }
+}

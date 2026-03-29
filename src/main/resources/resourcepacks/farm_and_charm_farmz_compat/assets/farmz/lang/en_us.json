@@ -1,0 +1,18 @@
+{
+  "item.farmz.glistering_strawberry": "Glistering Strawberry",
+  "item.farmz.golden_corn": "Golden Corn",
+  "item.farmz.golden_lettuce": "Golden Lettuce",
+  "item.farmz.golden_onion": "Golden Onion",
+  "item.farmz.golden_tomato": "Golden Tomato",
+  "item.farmz.golden_barley": "Golden Barley",
+  "item.farmz.golden_oat": "Golden Oat",
+
+  "block.farmz.glistering_strawberry_crop": "Glistering Strawberry Crop",
+  "block.farmz.golden_corn_crop": "Golden Corn Crop",
+  "block.farmz.golden_barley_crop": "Golden Barley Crop",
+  "block.farmz.golden_lettuce_crop": "Golden Lettuce Crop",
+  "block.farmz.golden_oat_crop": "Golden Oat Crop",
+  "block.farmz.golden_onion_crop": "Golden Onion Crop",
+  "block.farmz.golden_tomato_crop": "Golden Tomato Crop",
+  "block.farmz.golden_tomato_crop_body": "Golden Tomato Crop"
+}

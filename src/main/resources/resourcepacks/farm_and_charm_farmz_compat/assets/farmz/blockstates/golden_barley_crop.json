@@ -1,0 +1,27 @@
+ 
+{
+  "variants": {
+    "": [
+      {
+        "model": "farmz:block/golden_barley_1",
+        "weight": 1
+      },
+      {
+        "model": "farmz:block/golden_barley_2",
+        "weight": 1
+      },
+      {
+        "model": "farmz:block/golden_barley_3",
+        "weight": 1
+      },
+      {
+        "model": "farmz:block/golden_barley_4",
+        "weight": 1
+      },
+      {
+        "model": "farmz:block/golden_barley_5",
+        "weight": 1
+      }
+    ]
+  }
+}

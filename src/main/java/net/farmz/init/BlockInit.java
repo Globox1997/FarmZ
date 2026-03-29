@@ -52,7 +52,7 @@ public class BlockInit {
 
     public static BlockEntityType<SprinklerBlockEntity> SPRINKLER_ENTITY;
 
-    private static Block register(String id, Block block, boolean createItem, boolean itemGroup) {
+    public static Block register(String id, Block block, boolean createItem, boolean itemGroup) {
         return register(FarmMain.identifierOf(id), block, createItem, itemGroup);
     }
 
