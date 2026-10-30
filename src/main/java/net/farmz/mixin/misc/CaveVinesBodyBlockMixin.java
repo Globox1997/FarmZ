@@ -16,6 +16,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(CaveVinesBodyBlock.class)
 public class CaveVinesBodyBlockMixin {
@@ -28,6 +29,13 @@ public class CaveVinesBodyBlockMixin {
     @Inject(method = "appendProperties", at = @At("TAIL"))
     private void appendPropertiesMixin(StateManager.Builder<Block, BlockState> builder, CallbackInfo info) {
         builder.add(SprinklerBlock.GOLDEN);
+    }
+
+    @Inject(method = "copyState", at = @At("RETURN"), cancellable = true)
+    private void copyStateMixin(BlockState from, BlockState to, CallbackInfoReturnable<BlockState> info) {
+        if (from.contains(SprinklerBlock.GOLDEN)) {
+            info.setReturnValue(info.getReturnValue().withIfExists(SprinklerBlock.GOLDEN, from.get(SprinklerBlock.GOLDEN)));
+        }
     }
 
     @WrapOperation(method = "grow", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/world/ServerWorld;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z"))

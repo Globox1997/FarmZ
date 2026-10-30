@@ -65,6 +65,13 @@ public abstract class CaveVinesHeadBlockMixin extends AbstractPlantStemBlock {
         return original.call(instance, blockPos, state, age);
     }
 
+    @Inject(method = "copyState", at = @At("RETURN"), cancellable = true)
+    private void copyStateMixin(BlockState from, BlockState to, CallbackInfoReturnable<BlockState> info) {
+        if (from.contains(SprinklerBlock.GOLDEN)) {
+            info.setReturnValue(info.getReturnValue().withIfExists(SprinklerBlock.GOLDEN, from.get(SprinklerBlock.GOLDEN)));
+        }
+    }
+
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         super.onPlaced(world, pos, state, placer, itemStack);
