@@ -30,6 +30,10 @@ public class GoldenTomatoCropBodyBlock extends ClimbingCropBlock implements Fert
         this.setDefaultState(this.getDefaultState().with(SUPPORTED, false));
     }
 
+    public static Block create(AbstractBlock.Settings settings) {
+        return new GoldenTomatoCropBodyBlock(settings);
+    }
+
     @Override
     protected IntProperty getAgeProperty() {
         return AGE;

@@ -39,9 +39,9 @@ public abstract class CocoaBlockMixin extends HorizontalFacingBlock{
         builder.add(SprinklerBlock.GOLDEN);
     }
 
-    @WrapOperation(method = "grow", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/world/ServerWorld;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z"))
+    @WrapOperation(method = {"grow", "randomTick"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/server/world/ServerWorld;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z"))
     private boolean randomTickMixin(ServerWorld instance, BlockPos blockPos, BlockState state, int age, Operation<Boolean> original) {
-        if (state.get(CocoaBlock.AGE) + 1 == 2 && state.contains(SprinklerBlock.GOLDEN) && state.get(SprinklerBlock.GOLDEN)) {
+        if (state.get(CocoaBlock.AGE) == CocoaBlock.MAX_AGE && state.contains(SprinklerBlock.GOLDEN) && state.get(SprinklerBlock.GOLDEN)) {
             return instance.setBlockState(blockPos, Registries.BLOCK.get(FarmMain.identifierOf("golden_" + Registries.BLOCK.getId(state.getBlock()).getPath())).getDefaultState().with(HorizontalFacingBlock.FACING, state.get(HorizontalFacingBlock.FACING)), Block.NOTIFY_LISTENERS);
         }
         return original.call(instance, blockPos, state, age);

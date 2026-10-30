@@ -1,5 +1,7 @@
 package net.farmz.mixin.compat;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.farmz.block.SprinklerBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -12,6 +14,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(OnionCropBlock.class)
 public class OnionCropBlockMixin {
+
+    @WrapOperation(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/satisfy/farm_and_charm/core/block/crops/OnionCropBlock;setDefaultState(Lnet/minecraft/block/BlockState;)V"))
+    private void initMixin(OnionCropBlock instance, BlockState blockState, Operation<Void> original) {
+        original.call(instance, blockState.withIfExists(SprinklerBlock.GOLDEN, false));
+    }
 
     @Inject(method = "appendProperties", at = @At("TAIL"))
     private void appendPropertiesMixin(StateManager.Builder<Block, BlockState> builder, CallbackInfo info) {
