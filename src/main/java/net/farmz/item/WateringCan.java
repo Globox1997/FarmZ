@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.CropBlock;
 import net.minecraft.block.FarmlandBlock;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.particle.ParticleTypes;
@@ -17,6 +18,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.RaycastContext;
+import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 
 public class WateringCan extends Item {
@@ -30,21 +32,26 @@ public class WateringCan extends Item {
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
+        PlayerEntity player = context.getPlayer();
+        World world = context.getWorld();
+        if (player == null) {
+            return ActionResult.PASS;
+        }
         if (context.getStack().getDamage() > 0) {
-            BlockHitResult blockHitResult = raycast(context.getWorld(), context.getPlayer(), RaycastContext.FluidHandling.SOURCE_ONLY);
+            BlockHitResult blockHitResult = raycast(world, player, RaycastContext.FluidHandling.SOURCE_ONLY);
             if (blockHitResult.getType() == HitResult.Type.BLOCK) {
                 BlockPos blockPos = blockHitResult.getBlockPos();
-                if (!context.getWorld().canPlayerModifyAt(context.getPlayer(), blockPos)) {
+                if (!world.canPlayerModifyAt(player, blockPos)) {
                     return ActionResult.CONSUME;
                 }
 
-                if (context.getWorld().getFluidState(blockPos).isIn(FluidTags.WATER)) {
-                    context.getWorld().playSound(context.getPlayer(), context.getPlayer().getX(), context.getPlayer().getY(), context.getPlayer().getZ(), SoundEvents.ITEM_BUCKET_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-                    context.getWorld().emitGameEvent(context.getPlayer(), GameEvent.FLUID_PICKUP, blockPos);
-                    if (!context.getWorld().isClient()) {
+                if (world.getFluidState(blockPos).isIn(FluidTags.WATER)) {
+                    world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_BUCKET_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+                    world.emitGameEvent(player, GameEvent.FLUID_PICKUP, blockPos);
+                    if (!world.isClient()) {
                         context.getStack().setDamage(0);
                     }
-                    return ActionResult.success(context.getWorld().isClient());
+                    return ActionResult.success(world.isClient());
                 }
             }
         }
@@ -52,40 +59,41 @@ public class WateringCan extends Item {
             return ActionResult.CONSUME;
         }
 
-        if (!(context.getWorld().getBlockState(context.getBlockPos()).getBlock() instanceof FarmlandBlock) && !(context.getWorld().getBlockState(context.getBlockPos()).getBlock() instanceof CropBlock)) {
+        if (!(world.getBlockState(context.getBlockPos()).getBlock() instanceof FarmlandBlock) && !(world.getBlockState(context.getBlockPos()).getBlock() instanceof CropBlock)) {
             return ActionResult.CONSUME;
         }
         BlockPos pos = context.getBlockPos();
-        if (context.getWorld().getBlockState(context.getBlockPos()).getBlock() instanceof CropBlock) {
+        if (world.getBlockState(context.getBlockPos()).getBlock() instanceof CropBlock) {
             pos = pos.down();
         }
 
-        if (!context.getWorld().isClient()) {
+        world.playSound(player, pos, SoundInit.WATERING_CAN, SoundCategory.BLOCKS, 1.0f, 1.0f);
+        if (!world.isClient()) {
             for (int i = -this.size; i <= this.size; i++) {
                 for (int u = -this.size; u <= this.size; u++) {
-                    BlockPos checkPos = pos.add(u, 0, i);
-                    if (context.getWorld().getBlockState(checkPos).getBlock() instanceof FarmlandBlock) {
-                        context.getWorld().setBlockState(checkPos, context.getWorld().getBlockState(checkPos).with(SprinklerBlock.WATERED, 7).with(FarmlandBlock.MOISTURE, 7), Block.NOTIFY_LISTENERS);
+                    for (int y = -1; y <= 1; y++) {
+                        BlockPos checkPos = pos.add(u, y, i);
+                        if (world.getBlockState(checkPos).getBlock() instanceof FarmlandBlock) {
+                            world.setBlockState(checkPos, world.getBlockState(checkPos).with(SprinklerBlock.WATERED, 7).with(FarmlandBlock.MOISTURE, 7), Block.NOTIFY_LISTENERS);
+                        }
                     }
                 }
-            }
-            if (context.getWorld().getBlockState(pos).getBlock() instanceof FarmlandBlock) {
-                context.getWorld().setBlockState(pos, context.getWorld().getBlockState(pos).with(SprinklerBlock.WATERED, 7).with(FarmlandBlock.MOISTURE, 7), Block.NOTIFY_LISTENERS);
             }
 
             if (context.getStack().getDamage() == context.getStack().getMaxDamage() - 1) {
                 context.getStack().setDamage(context.getStack().getMaxDamage());
             } else {
-                context.getStack().damage(1, context.getPlayer(), LivingEntity.getSlotForHand(context.getHand()));
+                context.getStack().damage(1, player, LivingEntity.getSlotForHand(context.getHand()));
             }
         } else {
-            context.getWorld().playSound(context.getPlayer(), pos, SoundInit.WATERING_CAN, SoundCategory.BLOCKS, 1.0f, 1.0f);
             for (int i = -this.size; i <= this.size; i++) {
                 for (int u = -this.size; u <= this.size; u++) {
-                    for (int o = 0; o < 9; o++) {
-                        BlockPos particlePos = pos.add(u, 0, i);
-                        if (context.getWorld().getBlockState(particlePos).getBlock() instanceof FarmlandBlock) {
-                            context.getWorld().addParticle(ParticleTypes.DRIPPING_WATER, particlePos.getX() + context.getWorld().getRandom().nextFloat(), pos.getY() + 0.91, particlePos.getZ() + context.getWorld().getRandom().nextFloat(), 0D, 0D, 0D);
+                    for (int y = -1; y <= 1; y++) {
+                        BlockPos particlePos = pos.add(u, y, i);
+                        if (world.getBlockState(particlePos).getBlock() instanceof FarmlandBlock) {
+                            for (int o = 0; o < 9; o++) {
+                                world.addParticle(ParticleTypes.DRIPPING_WATER, particlePos.getX() + world.getRandom().nextFloat(), particlePos.getY() + 0.91, particlePos.getZ() + world.getRandom().nextFloat(), 0D, 0D, 0D);
+                            }
                         }
                     }
                 }

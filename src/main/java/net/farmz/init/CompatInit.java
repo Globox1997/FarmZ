@@ -69,8 +69,8 @@ public class CompatInit {
             GOLDEN_ONION_CROP = BlockInit.register("golden_onion_crop", new GoldenCropBlock(null,
                     AbstractBlock.Settings.create().mapColor(MapColor.GOLD).noCollision().breakInstantly().sounds(BlockSoundGroup.CROP).pistonBehavior(PistonBehavior.DESTROY)), false, false);
 
-            GOLDEN_TOMATO_CROP = BlockInit.register("golden_tomato_crop", new GoldenTomatoCropHeadBlock(AbstractBlock.Settings.copy(Blocks.SWEET_BERRY_BUSH)), false, false);
-            GOLDEN_TOMATO_CROP_BODY = BlockInit.register("golden_tomato_crop_body", new GoldenTomatoCropBodyBlock(AbstractBlock.Settings.copy(Blocks.SWEET_BERRY_BUSH)), false, false);
+            GOLDEN_TOMATO_CROP = BlockInit.register("golden_tomato_crop", GoldenTomatoCropHeadBlock.create(AbstractBlock.Settings.copy(Blocks.SWEET_BERRY_BUSH)), false, false);
+            GOLDEN_TOMATO_CROP_BODY = BlockInit.register("golden_tomato_crop_body", GoldenTomatoCropBodyBlock.create(AbstractBlock.Settings.copy(Blocks.SWEET_BERRY_BUSH)), false, false);
 
             ItemInit.GOLDEN_CROP_ITEMS.put(GLISTERING_STRAWBERRY_CROP, GLISTERING_STRAWBERRY);
             ItemInit.GOLDEN_CROP_ITEMS.put(GOLDEN_CORN_CROP, GOLDEN_CORN);

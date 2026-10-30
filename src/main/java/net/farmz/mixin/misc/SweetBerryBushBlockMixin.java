@@ -39,9 +39,9 @@ public abstract class SweetBerryBushBlockMixin extends PlantBlock {
         builder.add(SprinklerBlock.GOLDEN);
     }
 
-    @WrapOperation(method = "grow", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/world/ServerWorld;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z"))
+    @WrapOperation(method = {"grow", "randomTick"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/server/world/ServerWorld;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z"))
     private boolean randomTickMixin(ServerWorld instance, BlockPos blockPos, BlockState state, int age, Operation<Boolean> original) {
-        if (state.get(SweetBerryBushBlock.AGE) + 1 == 3 && state.contains(SprinklerBlock.GOLDEN) && state.get(SprinklerBlock.GOLDEN)) {
+        if (state.get(SweetBerryBushBlock.AGE) == SweetBerryBushBlock.MAX_AGE && state.contains(SprinklerBlock.GOLDEN) && state.get(SprinklerBlock.GOLDEN)) {
             return instance.setBlockState(blockPos, Registries.BLOCK.get(FarmMain.identifierOf("glistering_" + Registries.BLOCK.getId(state.getBlock()).getPath())).getDefaultState(), Block.NOTIFY_LISTENERS);
         }
         return original.call(instance, blockPos, state, age);
