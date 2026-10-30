@@ -17,6 +17,7 @@ public class FarmMain implements ModInitializer {
         BlockInit.init();
         EventInit.init();
         SoundInit.init();
+        ParticleInit.init();
         EntityInit.init();
         LoaderInit.init();
         FarmServerPacket.init();

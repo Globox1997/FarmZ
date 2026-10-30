@@ -8,7 +8,6 @@ import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.farmz.FarmMain;
 import net.farmz.block.renderer.SprinklerBlockRenderer;
 import net.farmz.data.FarmLoader;
@@ -19,9 +18,7 @@ import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -30,8 +27,6 @@ import net.minecraft.util.Identifier;
 public class RenderInit {
 
     public static final EntityModelLayer SPRINKLER_LAYER = new EntityModelLayer(FarmMain.identifierOf("sprinkler_render_layer"), "sprinkler_render_layer");
-
-    public static SimpleParticleType SPRINKLER_PARTICLE;
 
     public static final EntityModelLayer BEETHUUT_LAYER = new EntityModelLayer(FarmMain.identifierOf("beethuut_render_layer"), "beethuut_render_layer");
 
@@ -51,8 +46,7 @@ public class RenderInit {
         BlockRenderLayerMap.INSTANCE.putBlock(BlockInit.GOLDEN_COCOA, RenderLayer.getCutout());
 
         // Particle
-        SPRINKLER_PARTICLE = Registry.register(Registries.PARTICLE_TYPE, FarmMain.identifierOf("sprinkler"), FabricParticleTypes.simple());
-        ParticleFactoryRegistry.getInstance().register(SPRINKLER_PARTICLE, SprinklerParticle.DefaultFactory::new);
+        ParticleFactoryRegistry.getInstance().register(ParticleInit.SPRINKLER_PARTICLE, SprinklerParticle.DefaultFactory::new);
 
         ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && world.getBlockEntity(pos) != null ? BiomeColors.getWaterColor(world, pos) : 3708358, BlockInit.SPRINKLER);
 
@@ -61,8 +55,8 @@ public class RenderInit {
 
         ItemTooltipCallback.EVENT.register((stack, tooltipContext, tooltipType, lines) -> {
             Identifier itemId = Registries.ITEM.getId(stack.getItem());
-            if (FarmLoader.GOLD_CHANCE_ITEMS.containsKey(itemId)) {
-                lines.add(Text.translatable("item.farmz.golden_crop_chance", FarmLoader.GOLD_CHANCE_ITEMS.get(itemId)).formatted(Formatting.DARK_GREEN));
+            if (FarmLoader.CLIENT_GOLD_CHANCE_ITEMS.containsKey(itemId)) {
+                lines.add(Text.translatable("item.farmz.golden_crop_chance", FarmLoader.CLIENT_GOLD_CHANCE_ITEMS.get(itemId)).formatted(Formatting.DARK_GREEN));
             }
         });
 

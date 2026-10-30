@@ -16,8 +16,8 @@ public class FarmClientPacket {
         ClientPlayNetworking.registerGlobalReceiver(GoldItemChancePacket.PACKET_ID, (payload, context) -> {
             Map<Identifier, Integer> goldChanceItems = payload.goldChanceItems();
             context.client().execute(() -> {
-                FarmLoader.GOLD_CHANCE_ITEMS.clear();
-                FarmLoader.GOLD_CHANCE_ITEMS.putAll(goldChanceItems);
+                FarmLoader.CLIENT_GOLD_CHANCE_ITEMS.clear();
+                FarmLoader.CLIENT_GOLD_CHANCE_ITEMS.putAll(goldChanceItems);
             });
         });
     }

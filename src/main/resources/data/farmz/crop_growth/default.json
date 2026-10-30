@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "minecraft:wheat": 24000,
+  "minecraft:carrots": 24000,
+  "minecraft:potatoes": 24000,
+  "minecraft:beetroots": 18000,
+  "minecraft:torchflower_crop": 12000
+}
