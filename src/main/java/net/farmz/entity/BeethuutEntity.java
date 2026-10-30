@@ -12,9 +12,9 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BoneMealItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
@@ -50,20 +50,16 @@ public class BeethuutEntity extends PathAwareEntity {
     public void tick() {
         super.tick();
 
-        if (this.getWorld().getTime() % 20 == 0 && this.getRandom().nextFloat() <= 0.05f) {
-            if (this.getWorld().getBlockState(this.getBlockPos()).isOf(Blocks.FARMLAND) && this.getWorld().getBlockState(this.getBlockPos().up()).getBlock() instanceof CropBlock cropBlock && cropBlock.getAge(this.getWorld().getBlockState(this.getBlockPos().up())) < cropBlock.getMaxAge()) {
-                if (!this.getWorld().isClient()) {
-                    cropBlock.grow((ServerWorld) this.getWorld(), this.getRandom(), this.getBlockPos().up(), this.getWorld().getBlockState(this.getBlockPos().up()));
-                } else {
-                    BoneMealItem.createParticles(this.getWorld(), this.getBlockPos().up(), 5);
-                    this.playSound(SoundInit.BEETHUUT_IDLE_EVENT, 1.0f, 1.0f);
-                }
+        if (this.getWorld() instanceof ServerWorld serverWorld && serverWorld.getTime() % 20 == 0 && this.getRandom().nextFloat() <= 0.05f) {
+            BlockPos cropPos = this.getBlockPos().up();
+            BlockState cropState = serverWorld.getBlockState(cropPos);
+            if (serverWorld.getBlockState(this.getBlockPos()).isOf(Blocks.FARMLAND) && cropState.getBlock() instanceof CropBlock cropBlock && cropBlock.getAge(cropState) < cropBlock.getMaxAge()) {
+                cropBlock.grow(serverWorld, this.getRandom(), cropPos, cropState);
+                serverWorld.spawnParticles(ParticleTypes.HAPPY_VILLAGER, cropPos.getX() + 0.5D, cropPos.getY() + 0.5D, cropPos.getZ() + 0.5D, 5, 0.25D, 0.25D, 0.25D, 0.0D);
+                this.playSound(SoundInit.BEETHUUT_IDLE_EVENT, 1.0f, 1.0f);
             } else if (this.getRandom().nextFloat() < 0.01f) {
-                if (!this.getWorld().isClient()) {
-                    this.dropStack(new ItemStack(Items.BEETROOT_SEEDS));
-                } else {
-                    this.playSound(SoundInit.BEETHUUT_IDLE_EVENT, 1.0f, 1.0f);
-                }
+                this.dropStack(new ItemStack(Items.BEETROOT_SEEDS));
+                this.playSound(SoundInit.BEETHUUT_IDLE_EVENT, 1.0f, 1.0f);
             }
         }
     }
