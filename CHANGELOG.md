@@ -1,6 +1,8 @@
 ### Added:
-- Added farm and charm compat
+- Added fixed timed crop growth - datadriven
 ### Fixed:
-- Fixed compat crash
+- Fixed farm and charm compat
+- Fixed water source range config
+- Fixed couple golden plant issues
 ### Changed:
 - 
