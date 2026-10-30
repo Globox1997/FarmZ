@@ -11,6 +11,9 @@ public class FarmConfig implements ConfigData {
     @Comment("Farmland water source range check")
     public int waterSourceRange = 0;
 
+    @Comment("Crops listed in crop_growth datapack files grow on a fixed timer instead of random ticks")
+    public boolean timedCropGrowth = true;
+
     @Comment("Xp drop on breaking the plant")
     public int goldenPlantMinXp = 0;
     public int goldenPlantMaxXp = 2;

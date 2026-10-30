@@ -6,6 +6,7 @@ import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -95,17 +96,11 @@ public class GoldenCaveVinesBlock extends Block {
         if (direction == Direction.UP && !state.canPlaceAt(world, pos)) {
             world.breakBlock(pos, true);
         }
-
-//        AbstractPlantStemBlock abstractPlantStemBlock = this.getStem();
-//        if (direction == Direction.DOWN && !neighborState.isOf(this) && !neighborState.isOf(abstractPlantStemBlock)) {
-//            return this.copyState(state, abstractPlantStemBlock.getRandomGrowthState(world));
-//        } else {
-//            if (this.tickWater) {
-//                world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
-//            }
+        if (direction == Direction.DOWN && state.isOf(BlockInit.GLISTERING_CAVE_VINES_PLANT) && !neighborState.isIn(BlockTags.CAVE_VINES)) {
+            return BlockInit.GLISTERING_CAVE_VINES.getDefaultState().with(AGE, state.get(AGE));
+        }
 
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
-//        }
     }
 
 }

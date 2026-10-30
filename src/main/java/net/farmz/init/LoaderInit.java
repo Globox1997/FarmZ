@@ -2,6 +2,7 @@ package net.farmz.init;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.farmz.data.CropGrowthLoader;
 import net.farmz.data.FarmLoader;
 import net.farmz.network.FarmServerPacket;
 import net.minecraft.resource.ResourceType;
@@ -11,6 +12,7 @@ public class LoaderInit {
 
     public static void init() {
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new FarmLoader());
+        ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new CropGrowthLoader());
 
         ServerLifecycleEvents.END_DATA_PACK_RELOAD.register((server, serverResourceManager, success) -> {
             if (success) {

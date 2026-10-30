@@ -42,7 +42,15 @@ dependencies {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 	// Farm and Charm
-	modCompileOnly ('maven.modrinth:lets-do-farm-charm:NQb1d5es') {
+	modCompileOnly ('maven.modrinth:lets-do-farm-charm:dBeMI34d') {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+	// Fabric Seasons
+	modCompileOnly ('maven.modrinth:fabric-seasons:2mIvRTNp') {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+	// Serene Seasons
+	modCompileOnly ('maven.modrinth:serene-seasons:q34wStJM') {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 }
