@@ -39,7 +39,7 @@ public class GoldenCropUtil {
                     goldenPlantChance += FarmLoader.GOLD_CHANCE_ITEMS.get(itemId);
                 }
             }
-            if (state.contains(SprinklerBlock.GOLDEN) && goldenPlantChance > 0 && world.getRandom().nextInt(100) + 1 < goldenPlantChance) {
+            if (state.contains(SprinklerBlock.GOLDEN) && goldenPlantChance > 0 && world.getRandom().nextInt(100) < goldenPlantChance) {
                 world.setBlockState(pos, state.with(SprinklerBlock.GOLDEN, true));
             }
         }

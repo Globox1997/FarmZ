@@ -39,7 +39,7 @@ public abstract class FarmlandBlockMixin extends Block {
     @ModifyConstant(method = "isWaterNearby", constant = @Constant(intValue = -4), expect = 2)
     private static int isWaterNearbyMixin(int original) {
         if (ConfigInit.CONFIG.waterSourceRange > -1) {
-            return ConfigInit.CONFIG.waterSourceRange;
+            return -ConfigInit.CONFIG.waterSourceRange;
         }
         return original;
     }
@@ -91,6 +91,7 @@ public abstract class FarmlandBlockMixin extends Block {
         if (player.getStackInHand(hand).isOf(Items.EGG) && !state.get(SprinklerBlock.EGG)) {
             if (!world.isClient()) {
                 world.setBlockState(pos, state.with(SprinklerBlock.EGG, true));
+                stack.decrementUnlessCreative(1, player);
             } else {
                 player.playSound(SoundEvents.ENTITY_CHICKEN_EGG);
             }
@@ -98,4 +99,11 @@ public abstract class FarmlandBlockMixin extends Block {
         }
         return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
     }
+
+//    @Override
+//    protected void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
+////        System.out.println("ADDED");
+////        world.scheduleBlockTick(pos, this, 1);
+//        super.onBlockAdded(state, world, pos, oldState, notify);
+//    }
 }
