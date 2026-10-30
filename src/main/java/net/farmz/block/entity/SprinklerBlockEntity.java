@@ -2,7 +2,7 @@ package net.farmz.block.entity;
 
 import net.farmz.block.SprinklerBlock;
 import net.farmz.init.BlockInit;
-import net.farmz.init.RenderInit;
+import net.farmz.init.ParticleInit;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FarmlandBlock;
@@ -55,14 +55,14 @@ public class SprinklerBlockEntity extends BlockEntity {
                 double e = centerToParticleX;
                 double f = centerToParticleZ;
 
-                world.addParticle(RenderInit.SPRINKLER_PARTICLE, (double) pos.getX() + 0.5D + x, (double) pos.getY() + 0.9f, (double) pos.getZ() + 0.5D + z, e * 30, 60.0D, f * 30);
+                world.addParticle(ParticleInit.SPRINKLER_PARTICLE, (double) pos.getX() + 0.5D + x, (double) pos.getY() + 0.9f, (double) pos.getZ() + 0.5D + z, e * 30, 60.0D, f * 30);
             }
         }
     }
 
     public static void serverTick(World world, BlockPos pos, BlockState state, SprinklerBlockEntity blockEntity) {
-        if (world.getTime() % 50 == 0) {
-            sprinkle(world, pos, blockEntity.hasPowerAndWater(state));
+        if (world.getTime() % 50 == 0 && blockEntity.hasPowerAndWater(state)) {
+            sprinkle(world, pos, true);
         }
     }
 
@@ -114,12 +114,28 @@ public class SprinklerBlockEntity extends BlockEntity {
                             state = state.with(FarmlandBlock.MOISTURE, Math.min(state.get(FarmlandBlock.MOISTURE) + 1, 7));
                             world.setBlockState(checkPos, state.with(SprinklerBlock.SPRINKLED, sprinkle), Block.NOTIFY_LISTENERS);
                         }
-                    } else {
-                        world.setBlockState(checkPos, state.with(SprinklerBlock.SPRINKLED, sprinkle), Block.NOTIFY_LISTENERS);
+                    } else if (state.get(SprinklerBlock.SPRINKLED) && !isSprinkledByOther(world, checkPos, pos)) {
+                        world.setBlockState(checkPos, state.with(SprinklerBlock.SPRINKLED, false), Block.NOTIFY_LISTENERS);
                     }
                 }
             }
         }
+    }
+
+    private static boolean isSprinkledByOther(World world, BlockPos farmlandPos, BlockPos sprinklerPos) {
+        for (int i = -4; i < 5; i++) {
+            for (int u = -4; u < 5; u++) {
+                BlockPos otherPos = farmlandPos.add(u, 1, i);
+                if (otherPos.equals(sprinklerPos)) {
+                    continue;
+                }
+                BlockState otherState = world.getBlockState(otherPos);
+                if (otherState.isOf(BlockInit.SPRINKLER) && otherState.get(SprinklerBlock.WATER) && otherState.get(SprinklerBlock.POWERED)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }

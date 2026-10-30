@@ -14,7 +14,7 @@ public class SoundInit {
     public static SoundEvent BEETHUUT_DEATH_EVENT = register("beethuut_death");
 
     private static SoundEvent register(String id) {
-        return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(FarmMain.identifierOf(id)));
+        return Registry.register(Registries.SOUND_EVENT, FarmMain.identifierOf(id), SoundEvent.of(FarmMain.identifierOf(id)));
     }
 
     public static void init() {

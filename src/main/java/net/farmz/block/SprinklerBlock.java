@@ -1,9 +1,18 @@
 package net.farmz.block;
 
-import net.minecraft.block.*;
+import net.farmz.block.entity.SprinklerBlockEntity;
+import net.farmz.init.BlockInit;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
@@ -13,18 +22,10 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.RedstoneView;
-import org.jetbrains.annotations.Nullable;
-
-import net.farmz.block.entity.SprinklerBlockEntity;
-import net.farmz.init.BlockInit;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 public class SprinklerBlock extends Block implements BlockEntityProvider {
 
@@ -62,7 +63,7 @@ public class SprinklerBlock extends Block implements BlockEntityProvider {
         if (world.getBlockEntity(pos) instanceof SprinklerBlockEntity sprinklerBlockEntity) {
             if (player.getStackInHand(hand).isOf(Items.WATER_BUCKET) && !state.get(WATER)) {
                 if (!world.isClient()) {
-                    player.setStackInHand(hand, new ItemStack(Items.BUCKET));
+                    player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.BUCKET)));
                     world.setBlockState(pos, state.cycle(WATER), Block.NOTIFY_LISTENERS);
                 }
                 return ItemActionResult.SUCCESS;
@@ -114,7 +115,9 @@ public class SprinklerBlock extends Block implements BlockEntityProvider {
     protected void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         super.onStateReplaced(state, world, pos, newState, moved);
 
-        if (!state.isOf(newState.getBlock()) && !world.isClient()) {
+        boolean wasActive = state.get(WATER) && state.get(POWERED);
+        boolean isActive = newState.isOf(this) && newState.get(WATER) && newState.get(POWERED);
+        if (!world.isClient() && wasActive && !isActive) {
             SprinklerBlockEntity.sprinkle(world, pos, false);
         }
     }
