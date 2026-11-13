@@ -25,5 +25,10 @@
       "farmz:beethuut_death_2",
       "farmz:beethuut_death_3"
     ]
+  },
+  "sprinkler": {
+    "sounds": [
+      "farmz:sprinkler"
+    ]
   }
 }

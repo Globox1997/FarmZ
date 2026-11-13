@@ -3,12 +3,14 @@ package net.farmz.block.entity;
 import net.farmz.block.SprinklerBlock;
 import net.farmz.init.BlockInit;
 import net.farmz.init.ParticleInit;
+import net.farmz.init.SoundInit;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FarmlandBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -61,8 +63,13 @@ public class SprinklerBlockEntity extends BlockEntity {
     }
 
     public static void serverTick(World world, BlockPos pos, BlockState state, SprinklerBlockEntity blockEntity) {
-        if (world.getTime() % 50 == 0 && blockEntity.hasPowerAndWater(state)) {
-            sprinkle(world, pos, true);
+        if (blockEntity.hasPowerAndWater(state)) {
+            if (world.getTime() % 50 == 0) {
+                sprinkle(world, pos, true);
+            }
+            if (world.getTime() % 11 == 0) {
+                world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundInit.SPRINKLER_EVENT, SoundCategory.BLOCKS, 1.0f, 1.0f, world.getRandom().nextLong());
+            }
         }
     }
 

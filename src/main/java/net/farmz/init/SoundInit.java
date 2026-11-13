@@ -13,6 +13,8 @@ public class SoundInit {
     public static SoundEvent BEETHUUT_HURT_EVENT = register("beethuut_hurt");
     public static SoundEvent BEETHUUT_DEATH_EVENT = register("beethuut_death");
 
+    public static SoundEvent SPRINKLER_EVENT = register("sprinkler");
+
     private static SoundEvent register(String id) {
         return Registry.register(Registries.SOUND_EVENT, FarmMain.identifierOf(id), SoundEvent.of(FarmMain.identifierOf(id)));
     }
