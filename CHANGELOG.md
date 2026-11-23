@@ -1,8 +1,7 @@
-### Added:
-- Added fixed timed crop growth - datadriven
-### Fixed:
-- Fixed farm and charm compat
-- Fixed water source range config
-- Fixed couple golden plant issues
-### Changed:
+### Added
+- Sprinkler sound
+- Catch up growth for fixed timed crops
+### Fixed
+- Fixed golden chorus flower and cave vines
+### Changed
 - 
