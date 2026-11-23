@@ -1,10 +1,12 @@
 package net.farmz.util;
 
+import net.farmz.compat.FarmAndCharmCompat;
 import net.farmz.compat.SeasonsCompat;
 import net.farmz.data.CropGrowthLoader;
 import net.farmz.init.AttachmentInit;
 import net.farmz.init.ConfigInit;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.CropBlock;
 import net.minecraft.block.FarmlandBlock;
 import net.minecraft.server.world.ServerWorld;
@@ -77,9 +79,9 @@ public class CropGrowthUtil {
     }
 
     private static float getGrowthMultiplier(ServerWorld world, BlockPos pos, BlockState state) {
-        float multiplier = SeasonsCompat.getGrowthMultiplier(world, pos, state);
+        float multiplier = SeasonsCompat.getGrowthMultiplier(world, pos, state) * FarmAndCharmCompat.getRainGrowthMultiplier(world, pos);
         BlockState soilState = world.getBlockState(pos.down());
-        if (soilState.getBlock() instanceof FarmlandBlock && soilState.get(FarmlandBlock.MOISTURE) <= 0) {
+        if (soilState.isOf(Blocks.FARMLAND) && soilState.get(FarmlandBlock.MOISTURE) <= 0) {
             multiplier *= ConfigInit.CONFIG.dryFarmlandGrowthMultiplier;
         }
         return multiplier;

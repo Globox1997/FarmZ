@@ -121,6 +121,13 @@ public abstract class CropBlockMixin extends PlantBlock {
         super.onBlockAdded(state, world, pos, oldState, notify);
 
         if (world instanceof ServerWorld serverWorld) {
+            if (oldState.isOf(state.getBlock()) && this.getAge(state) > this.getAge(oldState)) {
+                BlockState grownState = getGrowthState(world, pos, oldState, this.getAge(state), state);
+                if (grownState != state) {
+                    world.setBlockState(pos, grownState, Block.NOTIFY_LISTENERS);
+                    return;
+                }
+            }
             CropGrowthUtil.scheduleGrowthTick(serverWorld, pos, state);
         }
     }
