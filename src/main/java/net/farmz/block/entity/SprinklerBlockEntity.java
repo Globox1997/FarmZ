@@ -68,7 +68,7 @@ public class SprinklerBlockEntity extends BlockEntity {
                 sprinkle(world, pos, true);
             }
             if (world.getTime() % 11 == 0) {
-                world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundInit.SPRINKLER_EVENT, SoundCategory.BLOCKS, 1.0f, 1.0f, world.getRandom().nextLong());
+                world.playSound(null, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, SoundInit.SPRINKLER_EVENT, SoundCategory.BLOCKS, 0.5f, 0.9f + world.getRandom().nextFloat() * 0.2f, world.getRandom().nextLong());
             }
         }
     }

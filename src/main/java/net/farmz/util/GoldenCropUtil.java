@@ -7,6 +7,7 @@ import net.farmz.init.ConfigInit;
 import net.levelz.access.LevelManagerAccess;
 import net.levelz.entity.LevelExperienceOrbEntity;
 import net.levelz.level.LevelManager;
+import net.levelz.level.PlayerSkill;
 import net.levelz.level.SkillBonus;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -63,8 +64,10 @@ public class GoldenCropUtil {
             if (LevelManager.BONUSES.containsKey("plantDropChance")) {
                 LevelManager levelManager = ((LevelManagerAccess) playerEntity).getLevelManager();
                 SkillBonus skillBonus = LevelManager.BONUSES.get("plantDropChance");
-                int level = levelManager.getPlayerSkills().get(skillBonus.getId()).getLevel();
-                return (int) (level * net.levelz.init.ConfigInit.CONFIG.plantDropChanceBonus * 100);
+                PlayerSkill playerSkill = levelManager.getPlayerSkills().get(skillBonus.getId());
+                if (playerSkill != null) {
+                    return (int) (playerSkill.getLevel() * net.levelz.init.ConfigInit.CONFIG.plantDropChanceBonus * 100);
+                }
             }
         }
         return 0;
