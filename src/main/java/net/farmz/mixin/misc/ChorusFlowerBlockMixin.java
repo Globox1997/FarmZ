@@ -18,6 +18,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldEvents;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -39,9 +40,18 @@ public abstract class ChorusFlowerBlockMixin extends Block {
         builder.add(SprinklerBlock.GOLDEN);
     }
 
+    @Unique
+    private static boolean goldenFlowerGrown = false;
+
+    @Inject(method = "randomTick", at = @At("HEAD"))
+    private void randomTickHeadMixin(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo info) {
+        goldenFlowerGrown = false;
+    }
+
     @WrapOperation(method = "randomTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/ChorusFlowerBlock;grow(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;I)V"))
     private void randomTickMixin(ChorusFlowerBlock instance, World world, BlockPos pos, int age, Operation<Void> original, BlockState state, ServerWorld serverWorld, BlockPos chorusFlowerPos, Random random) {
-        if (state.contains(SprinklerBlock.GOLDEN) && state.get(SprinklerBlock.GOLDEN)) {
+        if (!goldenFlowerGrown && state.contains(SprinklerBlock.GOLDEN) && state.get(SprinklerBlock.GOLDEN)) {
+            goldenFlowerGrown = true;
             world.setBlockState(pos, BlockInit.GOLDEN_CHORUS_FLOWER.getDefaultState(), Block.NOTIFY_LISTENERS);
             world.syncWorldEvent(WorldEvents.CHORUS_FLOWER_GROWS, pos, 0);
         } else {

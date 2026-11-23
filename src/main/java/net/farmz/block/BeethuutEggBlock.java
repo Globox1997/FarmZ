@@ -2,7 +2,6 @@ package net.farmz.block;
 
 import net.farmz.entity.BeethuutEntity;
 import net.farmz.init.EntityInit;
-import net.levelz.init.TagInit;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

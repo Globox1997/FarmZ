@@ -12,7 +12,11 @@ public class FarmConfig implements ConfigData {
     public int waterSourceRange = 0;
 
     @Comment("Crops listed in crop_growth datapack files grow on a fixed timer instead of random ticks")
-    public boolean timedCropGrowth = true;
+    public boolean timedCropGrowth = false;
+    @Comment("Fixed timed crops catch up on growth stages missed while their chunk was unloaded")
+    public boolean timedCropGrowthCatchUp = true;
+    @Comment("Growth speed multiplier for fixed timed crops on dry farmland, 0 stops the growth")
+    public float dryFarmlandGrowthMultiplier = 0.5F;
 
     @Comment("Xp drop on breaking the plant")
     public int goldenPlantMinXp = 0;

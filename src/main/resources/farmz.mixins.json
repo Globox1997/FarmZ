@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_21",
   "plugin": "net.farmz.mixin.FarmMixinPlugin",
   "mixins": [
+    "AbstractBlockStateMixin",
     "CropBlockMixin",
     "FarmlandBlockMixin",
     "compat.BarleyCropBlockMixin",
@@ -15,7 +16,9 @@
     "compat.StrawberryCropBlockMixin",
     "compat.TomatoCropBodyBlockMixin",
     "compat.TomatoCropHeadBlockMixin",
+    "misc.AbstractPlantBlockMixin",
     "misc.AbstractPlantPartBlockMixin",
+    "misc.AbstractPlantStemBlockMixin",
     "misc.BeetrootsBlockMixin",
     "misc.BoneMealItemMixin",
     "misc.CaveVinesBodyBlockMixin",

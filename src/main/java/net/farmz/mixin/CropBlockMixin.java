@@ -4,10 +4,8 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.farmz.FarmMain;
 import net.farmz.block.SprinklerBlock;
-import net.farmz.compat.SeasonsCompat;
-import net.farmz.data.CropGrowthLoader;
 import net.farmz.init.BlockInit;
-import net.farmz.init.ConfigInit;
+import net.farmz.util.CropGrowthUtil;
 import net.farmz.util.GoldenCropUtil;
 import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
@@ -17,7 +15,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -97,8 +94,8 @@ public abstract class CropBlockMixin extends PlantBlock {
 
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
     private void randomTickScheduleMixin(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo info) {
-        if (getGrowthTicks(state) > 0) {
-            scheduleGrowthTick(state, world, pos);
+        if (CropGrowthUtil.isGrowingTimedCrop(state)) {
+            CropGrowthUtil.scheduleGrowthTick(world, pos, state);
             info.cancel();
         }
     }
@@ -107,12 +104,15 @@ public abstract class CropBlockMixin extends PlantBlock {
     protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         super.scheduledTick(state, world, pos, random);
 
-        if (getGrowthTicks(state) > 0 && world.getGameRules().getInt(GameRules.RANDOM_TICK_SPEED) > 0) {
-            int age = this.getAge(state);
-            if (age < this.getMaxAge() && world.getBaseLightLevel(pos, 0) >= 9 && SeasonsCompat.getGrowthMultiplier(world, pos, state) > 0.0F && SeasonsCompat.canGrow(world, pos, state)) {
-                world.setBlockState(pos, getGrowthState(world, pos, state, age + 1, this.withAge(age + 1)), Block.NOTIFY_LISTENERS);
+        if (CropGrowthUtil.getGrowthTicks(state) > 0) {
+            int stages = CropGrowthUtil.getGrowthStages(world, pos, state, (CropBlock) (Object) this);
+            if (stages > 0) {
+                int age = Math.min(this.getAge(state) + stages, this.getMaxAge());
+                world.setBlockState(pos, getGrowthState(world, pos, state, age, this.withAge(age)), Block.NOTIFY_LISTENERS);
             }
-            scheduleGrowthTick(world.getBlockState(pos), world, pos);
+            CropGrowthUtil.scheduleGrowthTick(world, pos, world.getBlockState(pos));
+        } else {
+            CropGrowthUtil.removeLastGrowthTime(world, pos);
         }
     }
 
@@ -121,29 +121,16 @@ public abstract class CropBlockMixin extends PlantBlock {
         super.onBlockAdded(state, world, pos, oldState, notify);
 
         if (world instanceof ServerWorld serverWorld) {
-            scheduleGrowthTick(state, serverWorld, pos);
+            CropGrowthUtil.scheduleGrowthTick(serverWorld, pos, state);
         }
     }
 
-    @Unique
-    private static void scheduleGrowthTick(BlockState state, ServerWorld world, BlockPos pos) {
-        int growthTicks = getGrowthTicks(state);
-        if (growthTicks > 0 && state.getBlock() instanceof CropBlock cropBlock && !cropBlock.isMature(state) && !world.getBlockTickScheduler().isQueued(pos, cropBlock)
-                && world.getGameRules().getInt(GameRules.RANDOM_TICK_SPEED) > 0) {
-            int stageTicks = Math.max(1, growthTicks / Math.max(1, cropBlock.getMaxAge()));
-            float multiplier = SeasonsCompat.getGrowthMultiplier(world, pos, state);
-            if (multiplier > 0.0F) {
-                stageTicks = Math.max(1, Math.round(stageTicks / multiplier));
-            }
-            world.scheduleBlockTick(pos, cropBlock, stageTicks);
-        }
-    }
+    @Override
+    protected void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+        super.onStateReplaced(state, world, pos, newState, moved);
 
-    @Unique
-    private static int getGrowthTicks(BlockState state) {
-        if (!ConfigInit.CONFIG.timedCropGrowth) {
-            return 0;
+        if (!state.isOf(newState.getBlock()) && world instanceof ServerWorld serverWorld) {
+            CropGrowthUtil.removeLastGrowthTime(serverWorld, pos);
         }
-        return CropGrowthLoader.CROP_GROWTH_TICKS.getOrDefault(state.getBlock(), 0);
     }
 }
